@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voltti — Vertaa sähkösopimukset ja säästä vuodessa</title>
+<meta name="description" content="Voltti vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset puolestasi. Ilmainen, sitoumukseton ja valmis kolmessa minuutissa.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Voltti — Vertaa sähkösopimukset ja säästä vuodessa">
+<meta property="og:description" content="Ilmainen sähkösopimusvertailu suomalaisille kotitalouksille. Kolme minuuttia, ei sitoumuksia.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2312151A'/%3E%3Cpath d='M54 16 L28 56 H46 L42 84 L74 40 H54 Z' fill='%23C6FF3D'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================= RESET & TOKENS ============================= */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+:root{
+  --paper:#FAFAF7;
+  --paper-alt:#F1F1EA;
+  --ink:#12151A;
+  --ink-dim:#565B66;
+  --ink-faint:#8A8F99;
+  --line:#E4E4DC;
+  --line-strong:#CFCFC3;
+  --lime:#C6FF3D;
+  --lime-deep:#8FCC00;
+  --lime-ink:#1B2400;
+  --dark:#12151A;
+  --dark-alt:#1B1F27;
+  --white:#FFFFFF;
+  --danger:#C6432E;
+  --radius-sm:4px;
+  --radius-md:8px;
+  --radius-lg:14px;
+  --shadow-card:0 1px 2px rgba(18,21,26,0.04), 0 8px 24px rgba(18,21,26,0.06);
+  --shadow-lift:0 4px 10px rgba(18,21,26,0.08), 0 24px 48px rgba(18,21,26,0.12);
+  --ease-out:cubic-bezier(.16,.8,.3,1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Instrument Sans',sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; border:none; background:none; color:inherit; cursor:pointer; }
+ul{ list-style:none; }
+input{ font:inherit; }
+h1,h2,h3,h4{ font-weight:700; letter-spacing:-0.02em; line-height:1.1; color:var(--ink); }
+.mono{ font-family:'JetBrains Mono',monospace; }
+::selection{ background:var(--lime); color:var(--lime-ink); }
+.container{ width:min(1180px,92%); margin-inline:auto; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible{
+  outline:2px solid var(--lime-deep); outline-offset:3px; border-radius:4px;
+}
+.skip-link{ position:absolute; left:-999px; top:0; background:var(--dark); color:var(--lime); padding:10px 16px; z-index:500; border-radius:0 0 8px 0; font-weight:600; }
+.skip-link:focus{ left:0; }
+
+/* ============================= REVEAL ============================= */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity 640ms var(--ease-out), transform 640ms var(--ease-out); }
+.reveal.is-visible{ opacity:1; transform:none; }
+
+/* ============================= BUTTONS ============================= */
+.btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 24px; border-radius:var(--radius-md); font-weight:600; font-size:0.95rem; transition:transform var(--dur-fast) var(--ease-out), background var(--dur-fast), box-shadow var(--dur-fast); white-space:nowrap; }
+.btn-lime{ background:var(--lime); color:var(--lime-ink); }
+.btn-lime:hover{ background:var(--lime-deep); transform:translateY(-1px); box-shadow:var(--shadow-lift); }
+.btn-dark{ background:var(--dark); color:var(--white); }
+.btn-dark:hover{ background:var(--dark-alt); transform:translateY(-1px); }
+.btn-ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--line-strong); }
+.btn-ghost:hover{ border-color:var(--ink); }
+.btn-sm{ padding:9px 16px; font-size:0.85rem; }
+.btn-block{ width:100%; justify-content:center; }
+
+/* ============================= HEADER ============================= */
+.site-header{ position:sticky; top:0; z-index:100; background:rgba(250,250,247,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+.nav{ display:flex; align-items:center; justify-content:space-between; height:74px; gap:24px; }
+.logo{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:1.2rem; letter-spacing:-0.02em; }
+.logo-mark{ width:30px; height:30px; border-radius:8px; background:var(--dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.logo-mark svg{ width:15px; height:15px; }
+.nav-links{ display:flex; align-items:center; gap:32px; }
+.nav-links a{ font-size:0.92rem; font-weight:500; color:var(--ink-dim); transition:color var(--dur-fast); }
+.nav-links a:hover{ color:var(--ink); }
+.nav-actions{ display:flex; align-items:center; gap:12px; }
+.nav-toggle{ display:none; padding:8px; }
+.nav-toggle svg{ width:22px; height:22px; }
+.mobile-menu{ display:none; }
+@media (max-width:860px){
+  .nav-links{ display:none; }
+  .nav-toggle{ display:flex; }
+  .nav-actions .btn-ghost{ display:none; }
+  .mobile-menu{ position:fixed; inset:74px 0 0 0; background:var(--paper); z-index:90; padding:28px 6%; flex-direction:column; gap:4px; transform:translateX(100%); transition:transform var(--dur-med) var(--ease-out); }
+  .mobile-menu.open{ display:flex; transform:translateX(0); }
+  .mobile-menu a{ padding:16px 4px; border-bottom:1px solid var(--line); font-size:1.1rem; font-weight:600; }
+  .mobile-menu .btn{ margin-top:18px; }
+}
+
+/* ============================= HERO ============================= */
+.hero{ padding:64px 0 90px; position:relative; overflow:hidden; }
+.hero::before{ content:''; position:absolute; top:-140px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(198,255,61,0.35), transparent 70%); pointer-events:none; }
+.hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; position:relative; }
+.eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--lime-ink); background:var(--lime); padding:7px 13px; border-radius:100px; margin-bottom:22px; }
+.hero h1{ font-size:clamp(2.3rem,4.4vw,3.5rem); margin-bottom:20px; }
+.hero h1 .hl{ background:linear-gradient(180deg, transparent 62%, var(--lime) 62%); }
+.hero p.lead{ font-size:1.14rem; color:var(--ink-dim); max-width:480px; margin-bottom:30px; }
+.hero-cta-row{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-bottom:36px; }
+.trust-mini{ font-size:0.85rem; color:var(--ink-faint); }
+.hero-stats{ display:flex; gap:32px; flex-wrap:wrap; }
+.hero-stat .num{ font-family:'JetBrains Mono',monospace; font-size:1.5rem; font-weight:700; color:var(--ink); }
+.hero-stat .lbl{ font-size:0.8rem; color:var(--ink-faint); margin-top:2px; }
+
+/* ---- Calculator card ---- */
+.calc-card{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-lift); padding:30px; position:relative; }
+.calc-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+.calc-head h3{ font-size:1.02rem; }
+.calc-live{ display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:600; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em; }
+.dot-live{ width:7px; height:7px; border-radius:50%; background:var(--lime-deep); animation:pulse 1.8s infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+.field{ margin-bottom:20px; }
+.field label{ display:flex; justify-content:space-between; font-size:0.83rem; font-weight:600; color:var(--ink-dim); margin-bottom:10px; }
+.field label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:700; }
+input[type="range"]{ -webkit-appearance:none; width:100%; height:6px; border-radius:100px; background:var(--paper-alt); outline:none; }
+input[type="range"]::-webkit-slider-thumb{ -webkit-appearance:none; width:20px; height:20px; border-radius:50%; background:var(--dark); border:3px solid var(--lime); cursor:pointer; }
+input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background:var(--dark); border:3px solid var(--lime); cursor:pointer; }
+.pill-group{ display:flex; gap:8px; flex-wrap:wrap; }
+.pill-opt{ flex:1; min-width:100px; text-align:center; padding:11px 10px; border-radius:var(--radius-md); border:1.5px solid var(--line-strong); font-size:0.83rem; font-weight:600; color:var(--ink-dim); transition:all var(--dur-fast); }
+.pill-opt.active{ background:var(--dark); border-color:var(--dark); color:var(--lime); }
+.calc-result{ margin-top:24px; padding:22px; border-radius:var(--radius-md); background:var(--dark); position:relative; overflow:hidden; }
+.calc-result::after{ content:''; position:absolute; top:-40%; right:-20%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(198,255,61,0.25), transparent 70%); }
+.calc-result .r-label{ font-size:0.78rem; color:rgba(255,255,255,0.55); margin-bottom:6px; position:relative; }
+.calc-result .r-value{ font-family:'JetBrains Mono',monospace; font-size:2.3rem; font-weight:700; color:var(--lime); position:relative; }
+.calc-result .r-sub{ font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:6px; position:relative; }
+.bar-compare{ margin-top:16px; display:flex; flex-direction:column; gap:9px; position:relative; }
+.bar-row{ display:flex; align-items:center; gap:10px; }
+.bar-row .bar-lbl{ font-size:0.72rem; color:rgba(255,255,255,0.55); width:78px; flex-shrink:0; }
+.bar-track{ flex:1; height:7px; background:rgba(255,255,255,0.12); border-radius:100px; overflow:hidden; }
+.bar-fill{ height:100%; border-radius:100px; transition:width 500ms var(--ease-out); }
+.bar-fill.now{ background:rgba(255,255,255,0.4); }
+.bar-fill.best{ background:var(--lime); }
+.calc-disclaimer{ font-size:0.72rem; color:var(--ink-faint); margin-top:16px; line-height:1.5; }
+
+@media (max-width:900px){
+  .hero-grid{ grid-template-columns:1fr; }
+}
+
+/* ============================= TRUST STRIP ============================= */
+.trust-strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-alt); padding:26px 0; }
+.trust-strip .container{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+.trust-item{ display:flex; align-items:center; gap:10px; font-size:0.86rem; color:var(--ink-dim); font-weight:500; }
+.trust-item svg{ width:18px; height:18px; color:var(--lime-deep); flex-shrink:0; }
+
+/* ============================= SECTION SHARED ============================= */
+.section{ padding:96px 0; }
+.section-head{ max-width:620px; margin-bottom:52px; }
+.section-head.center{ margin-inline:auto; text-align:center; }
+.section-head .eyebrow{ background:var(--paper-alt); color:var(--ink-dim); }
+.section-head h2{ font-size:clamp(1.8rem,3.2vw,2.5rem); margin-bottom:14px; }
+.section-head p{ color:var(--ink-dim); font-size:1.02rem; }
+.section-alt{ background:var(--paper-alt); }
+
+/* ============================= CONTRACT TYPE CARDS ============================= */
+.type-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.type-card{ background:var(--white); border:1px solid var(--line); border-radius:var(--radius-lg); padding:28px; transition:transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med); }
+.type-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lift); }
+.type-icon{ width:44px; height:44px; border-radius:10px; background:var(--dark); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+.type-icon svg{ width:22px; height:22px; color:var(--lime); }
+.type-card h3{ font-size:1.12rem; margin-bottom:10px; }
+.type-card p{ color:var(--ink-dim); font-size:0.92rem; margin-bottom:16px; }
+.type-tag{ display:inline-block; font-size:0.74rem; font-weight:700; padding:5px 11px; border-radius:100px; background:var(--paper-alt); color:var(--ink-dim); }
+@media (max-width:860px){ .type-grid{ grid-template-columns:1fr; } }
+
+/* ============================= COMPARISON TABLE ============================= */
+.compare-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--white); }
+table.compare{ width:100%; border-collapse:collapse; min-width:640px; }
+table.compare th, table.compare td{ padding:16px 20px; text-align:left; font-size:0.9rem; border-bottom:1px solid var(--line); }
+table.compare th{ font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); font-weight:700; background:var(--paper-alt); }
+table.compare td:first-child, table.compare th:first-child{ font-weight:600; color:var(--ink); }
+table.compare tr:last-child td{ border-bottom:none; }
+.chk{ color:var(--lime-deep); font-weight:700; }
+.x-mark{ color:var(--ink-faint); }
+
+/* ============================= HOW IT WORKS ============================= */
+.steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; counter-reset:step; }
+.step{ position:relative; padding-left:0; }
+.step-num{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:0.85rem; color:var(--lime-ink); background:var(--lime); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+.step h3{ font-size:1.08rem; margin-bottom:10px; }
+.step p{ color:var(--ink-dim); font-size:0.92rem; }
+@media (max-width:860px){ .steps{ grid-template-columns:1fr; gap:28px; } }
+
+/* ============================= FAQ ============================= */
+.faq-list{ max-width:760px; margin-inline:auto; display:flex; flex-direction:column; gap:12px; }
+.faq-item{ border:1px solid var(--line); border-radius:var(--radius-md); background:var(--white); overflow:hidden; }
+.faq-item summary{ list-style:none; cursor:pointer; padding:19px 22px; font-weight:600; font-size:0.98rem; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary .plus{ flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--paper-alt); display:flex; align-items:center; justify-content:center; font-size:1rem; transition:transform var(--dur-fast); }
+.faq-item[open] summary .plus{ transform:rotate(45deg); background:var(--lime); }
+.faq-item .faq-body{ padding:0 22px 20px; color:var(--ink-dim); font-size:0.92rem; line-height:1.6; }
+
+/* ============================= CTA BAND ============================= */
+.cta-band{ background:var(--dark); border-radius:var(--radius-lg); padding:64px 48px; text-align:center; position:relative; overflow:hidden; }
+.cta-band::before{ content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:520px; height:280px; background:radial-gradient(ellipse, rgba(198,255,61,0.28), transparent 70%); pointer-events:none; }
+.cta-band h2{ color:var(--white); font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:14px; position:relative; }
+.cta-band p{ color:rgba(255,255,255,0.62); max-width:460px; margin:0 auto 28px; position:relative; }
+.cta-band .btn{ position:relative; }
+@media (max-width:640px){ .cta-band{ padding:48px 24px; } }
+
+/* ============================= FOOTER ============================= */
+.site-footer{ border-top:1px solid var(--line); padding:56px 0 32px; }
+.footer-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px; margin-bottom:40px; }
+.footer-brand .logo{ margin-bottom:14px; }
+.footer-brand p{ color:var(--ink-dim); font-size:0.88rem; max-width:280px; }
+.footer-col h4{ font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:14px; }
+.footer-col a{ display:block; font-size:0.9rem; color:var(--ink-dim); margin-bottom:10px; transition:color var(--dur-fast); }
+.footer-col a:hover{ color:var(--ink); }
+.footer-disclosure{ border-top:1px solid var(--line); padding-top:24px; font-size:0.78rem; color:var(--ink-faint); line-height:1.7; max-width:900px; }
+.footer-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:24px; font-size:0.8rem; color:var(--ink-faint); }
+@media (max-width:760px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:480px){ .footer-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#sisalto">Siirry sisältöön</a>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="#" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
+      Voltti
+    </a>
+    <nav class="nav-links" aria-label="Päävalikko">
+      <a href="#vertaile">Vertaile</a>
+      <a href="#miten">Miten toimii</a>
+      <a href="#sopimustyypit">Sopimustyypit</a>
+      <a href="#ukk">UKK</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="#yhteystiedot" class="btn btn-ghost btn-sm">Yhteystiedot</a>
+      <a href="#vertaile" class="btn btn-dark btn-sm">Aloita vertailu</a>
+      <button class="nav-toggle" aria-label="Avaa valikko" aria-expanded="false" aria-controls="mobile-menu" id="navToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobiilivalikko">
+    <a href="#vertaile">Vertaile</a>
+    <a href="#miten">Miten toimii</a>
+    <a href="#sopimustyypit">Sopimustyypit</a>
+    <a href="#ukk">UKK</a>
+    <a href="#yhteystiedot">Yhteystiedot</a>
+    <a href="#vertaile" class="btn btn-lime">Aloita vertailu</a>
+  </nav>
+</header>
+
+<main id="sisalto">
+
+  <!-- ============================= HERO ============================= -->
+  <section class="hero" id="vertaile">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Ilmainen &amp; sitoumukseton</span>
+        <h1>Löydä sähkösopimus,<br>joka <span class="hl">oikeasti kannattaa.</span></h1>
+        <p class="lead">Voltti vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset kulutuksesi mukaan — ja näyttää arvion säästöstä ennen kuin sitoudut mihinkään.</p>
+        <div class="hero-cta-row">
+          <a href="#laskuri" class="btn btn-lime">Laske oma säästösi</a>
+          <span class="trust-mini">Ei vaadi rekisteröitymistä</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><div class="num mono">3 min</div><div class="lbl">keskimääräinen vertailuaika</div></div>
+          <div class="hero-stat"><div class="num mono">0 €</div><div class="lbl">palvelun käyttö sinulle</div></div>
+          <div class="hero-stat"><div class="num mono">100%</div><div class="lbl">riippumaton vertailu</div></div>
+        </div>
+      </div>
+
+      <div class="calc-card" id="laskuri">
+        <div class="calc-head">
+          <h3>Säästölaskuri</h3>
+          <span class="calc-live"><span class="dot-live"></span>Live-arvio</span>
+        </div>
+
+        <div class="field">
+          <label>Vuosikulutus <span class="val mono"><span id="kwhVal">5000</span> kWh</span></label>
+          <input type="range" id="kwhSlider" min="1500" max="25000" step="250" value="5000" aria-label="Vuosikulutus kilowattitunteina">
+        </div>
+
+        <div class="field">
+          <label>Nykyinen sopimustyyppi</label>
+          <div class="pill-group" id="contractPills" role="group" aria-label="Valitse nykyinen sopimustyyppi">
+            <button type="button" class="pill-opt active" data-price="14.9">Toistaiseksi</button>
+            <button type="button" class="pill-opt" data-price="11.4">Määräaikainen</button>
+            <button type="button" class="pill-opt" data-price="9.8">En tiedä</button>
+          </div>
+        </div>
+
+        <div class="calc-result">
+          <div class="r-label">Arvioitu säästöpotentiaali / vuosi</div>
+          <div class="r-value mono" id="savingsValue">218 €</div>
+          <div class="r-sub" id="savingsSub">Vertailtuna kilpailukykyisimpään sopimustyyppiin kulutuksellasi</div>
+          <div class="bar-compare">
+            <div class="bar-row">
+              <span class="bar-lbl">Nykyinen</span>
+              <div class="bar-track"><div class="bar-fill now" id="barNow" style="width:100%"></div></div>
+              <span class="mono bar-num" id="barNowVal" style="color:rgba(255,255,255,.75);font-size:.72rem;width:52px;text-align:right;">745 €</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-lbl">Arvioitu paras</span>
+              <div class="bar-track"><div class="bar-fill best" id="barBest" style="width:70%"></div></div>
+              <span class="mono bar-num" id="barBestVal" style="color:#C6FF3D;font-size:.72rem;width:52px;text-align:right;">527 €</span>
+            </div>
+          </div>
+        </div>
+        <p class="calc-disclaimer">Laskuri antaa suuntaa-antavan arvion yleisten markkinahintatasojen perusteella, ei sitovaa tarjousta. Todellinen hinta riippuu alueesta, sopimusehdoista ja ajankohdasta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= TRUST STRIP ============================= -->
+  <div class="trust-strip">
+    <div class="container">
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Ei piilokuluja tai lukitusmaksuja</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Vertailu ei vaikuta luottotietoihisi</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Selkeät suomenkieliset sopimusehdot</div>
+      <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Peruuta koska tahansa</div>
+    </div>
+  </div>
+
+  <!-- ============================= CONTRACT TYPES ============================= -->
+  <section class="section" id="sopimustyypit">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sopimustyypit</span>
+        <h2>Kolme tapaa maksaa sähköstä</h2>
+        <p>Oikea sopimustyyppi riippuu kulutustottumuksistasi ja riskinsietokyvystäsi — emme suosittele yhtä ratkaisua kaikille.</p>
+      </div>
+      <div class="type-grid">
+        <div class="type-card reveal">
+          <div class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h3>Pörssisähkö</h3>
+          <p>Hinta seuraa tuntikohtaista pörssihintaa. Voi olla edullisin, jos pystyt siirtämään kulutusta halvoille tunneille.</p>
+          <span class="type-tag">Aktiiviselle kuluttajalle</span>
+        </div>
+        <div class="type-card reveal">
+          <div class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v3M16 4v3"/></svg></div>
+          <h3>Kiinteä hinta</h3>
+          <p>Sama senttihinta koko sopimuskauden. Ennustettava kuukausilasku, suojaa hintapiikeiltä.</p>
+          <span class="type-tag">Vakautta hakevalle</span>
+        </div>
+        <div class="type-card reveal">
+          <div class="type-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3>Kausisähkö</h3>
+          <p>Hinta vaihtelee vuodenajan mukaan, halvempi kesällä. Sopii tasaisen kulutuksen kotitalouksille.</p>
+          <span class="type-tag">Kausivaihtelun hyödyntäjälle</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= COMPARISON TABLE ============================= -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Vertailu</span>
+        <h2>Sopimustyypit rinnakkain</h2>
+        <p>Yleiskatsaus ominaisuuksiin — tarkat hinnat ja saatavuus vaihtelevat toimittajan ja alueen mukaan.</p>
+      </div>
+      <div class="compare-wrap reveal">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th>Ominaisuus</th>
+              <th>Pörssisähkö</th>
+              <th>Kiinteä hinta</th>
+              <th>Kausisähkö</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hinnan ennustettavuus</td>
+              <td class="x-mark">Matala</td>
+              <td class="chk">Korkea</td>
+              <td>Keskitaso</td>
+            </tr>
+            <tr>
+              <td>Säästöpotentiaali joustavalla kulutuksella</td>
+              <td class="chk">Korkea</td>
+              <td class="x-mark">Matala</td>
+              <td>Keskitaso</td>
+            </tr>
+            <tr>
+              <td>Suoja hintapiikeiltä</td>
+              <td class="x-mark">Ei</td>
+              <td class="chk">Kyllä</td>
+              <td>Osittainen</td>
+            </tr>
+            <tr>
+              <td>Tyypillinen sopimuskausi</td>
+              <td>Toistaiseksi</td>
+              <td>12–24 kk</td>
+              <td>12 kk</td>
+            </tr>
+            <tr>
+              <td>Sopii parhaiten</td>
+              <td>Joustavalle kulutukselle</td>
+              <td>Tasaiselle budjetille</td>
+              <td>Kesäpainotteiselle kulutukselle</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= HOW IT WORKS ============================= -->
+  <section class="section" id="miten">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Miten Voltti toimii</span>
+        <h2>Kolme minuuttia, kolme askelta</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num mono">01</div>
+          <h3>Kerro kulutuksesi</h3>
+          <p>Syötä arvioitu vuosikulutus ja nykyinen sopimustyyppi laskuriin — löydät luvut viimeisimmästä sähkölaskustasi.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num mono">02</div>
+          <h3>Näe säästöarvio</h3>
+          <p>Voltti näyttää heti arvion siitä, kuinka paljon voisit säästää vaihtamalla sopimustyyppiä tai toimittajaa.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num mono">03</div>
+          <h3>Vertaile ja päätä</h3>
+          <p>Selaa vaihtoehtoja rauhassa, ilman puhelinsoittoja tai painostusta. Sitoudut vain, jos itse haluat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= FAQ ============================= -->
+  <section class="section section-alt" id="ukk">
+    <div class="container">
+      <div class="section-head center reveal" style="margin-inline:auto;">
+        <span class="eyebrow">Usein kysytyt kysymykset</span>
+        <h2>Hyvä tietää ennen vertailua</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>Onko vertailun käyttö minulle ilmaista?<span class="plus">+</span></summary>
+          <div class="faq-body">Kyllä. Voltin vertailutyökalu on kuluttajalle täysin ilmainen eikä vaadi rekisteröitymistä.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Miten Voltti ansaitsee rahaa?<span class="plus">+</span></summary>
+          <div class="faq-body">Voltti on riippumaton vertailupalvelu. Voimme saada välityspalkkion, jos teet sopimuksen suosittelemamme kumppanin kautta — tämä ei koskaan vaikuta hintaan, jonka sinä maksat, eikä ohjaa suosituksiamme.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Vaikuttaako vertailu luottotietoihini?<span class="plus">+</span></summary>
+          <div class="faq-body">Ei. Itse vertailu ei tee luottotietokyselyä. Mahdollinen luottotietojen tarkistus tehdään vasta, jos päätät edetä varsinaiseen sopimukseen toimittajan kanssa.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Kuinka usein sähkösopimusta kannattaa vertailla?<span class="plus">+</span></summary>
+          <div class="faq-body">Yleinen nyrkkisääntö on kerran vuodessa tai aina, kun määräaikainen sopimuksesi on päättymässä — hintatasot ja tarjonta muuttuvat jatkuvasti.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CTA BAND ============================= -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>Valmis näkemään oman säästösi?</h2>
+        <p>Kolme minuuttia laskuriin, ei sitoumuksia, ei puheluita ellet itse halua.</p>
+        <a href="#laskuri" class="btn btn-lime">Aloita vertailu nyt</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="yhteystiedot">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
+          Voltti
+        </a>
+        <p>Riippumaton sähkösopimusvertailu suomalaisille kotitalouksille. Demoversio.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Palvelu</h4>
+        <a href="#vertaile">Vertaile sopimukset</a>
+        <a href="#sopimustyypit">Sopimustyypit</a>
+        <a href="#miten">Miten toimii</a>
+      </div>
+      <div class="footer-col">
+        <h4>Tietoa</h4>
+        <a href="#ukk">UKK</a>
+        <a href="#">Tietosuoja</a>
+        <a href="#">Käyttöehdot</a>
+      </div>
+      <div class="footer-col">
+        <h4>Yhteystiedot</h4>
+        <a href="mailto:hei@voltti.fi">hei@voltti.fi</a>
+      </div>
+    </div>
+    <div class="footer-disclosure">
+      <strong>Kaupallinen yhteistyö:</strong> Voltti on riippumaton vertailupalvelu, joka voi saada palkkion sähköntoimittajilta, jos teet sopimuksen palvelumme kautta. Palkkio ei vaikuta antamiimme vertailutuloksiin tai suosituksiin, eikä se vaikuta sopimuksesi hintaan. Laskurin arviot ovat suuntaa-antavia eivätkä sitovia tarjouksia.
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Voltti. Kaikki oikeudet pidätetään.</span>
+      <span>Demosivusto — ei tuotantokäytössä</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobile-menu');
+navToggle.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+}));
+
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
+
+// Calculator
+const kwhSlider = document.getElementById('kwhSlider');
+const kwhVal = document.getElementById('kwhVal');
+const pills = document.querySelectorAll('#contractPills .pill-opt');
+const savingsValue = document.getElementById('savingsValue');
+const savingsSub = document.getElementById('savingsSub');
+const barNow = document.getElementById('barNow');
+const barBest = document.getElementById('barBest');
+const barNowVal = document.getElementById('barNowVal');
+const barBestVal = document.getElementById('barBestVal');
+
+// Illustrative c/kWh coefficients per current-contract selection vs best estimated market rate.
+const BEST_RATE = 7.9; // c/kWh, illustrative "best available" reference
+let currentRate = 14.9;
+
+function formatEur(n){
+  return Math.round(n).toLocaleString('fi-FI') + ' €';
+}
+
+function recalc(){
+  const kwh = parseInt(kwhSlider.value, 10);
+  kwhVal.textContent = kwh.toLocaleString('fi-FI');
+
+  const nowCost = (kwh * currentRate) / 100;
+  const bestCost = (kwh * BEST_RATE) / 100;
+  const savings = Math.max(nowCost - bestCost, 0);
+
+  savingsValue.textContent = formatEur(savings);
+  barNowVal.textContent = formatEur(nowCost);
+  barBestVal.textContent = formatEur(bestCost);
+
+  const ratio = nowCost > 0 ? Math.max(10, Math.min(100, (bestCost / nowCost) * 100)) : 100;
+  barBest.style.width = ratio + '%';
+  barNow.style.width = '100%';
+
+  savingsSub.textContent = savings > 5
+    ? 'Vertailtuna kilpailukykyisimpään sopimustyyppiin kulutuksellasi'
+    : 'Sopimuksesi vaikuttaa jo kilpailukykyiseltä nykykulutuksella';
+}
+
+kwhSlider.addEventListener('input', recalc);
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    pills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    currentRate = parseFloat(pill.dataset.price);
+    recalc();
+  });
+});
+
+recalc();
+</script>
+</body>
+</html>
