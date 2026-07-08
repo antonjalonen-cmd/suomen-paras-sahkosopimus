@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Voltti — Vertaa sähkösopimukset ja säästä vuodessa</title>
-<meta name="description" content="Voltti vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset puolestasi. Ilmainen, sitoumukseton ja valmis kolmessa minuutissa.">
+<title>Suomen Parhaat Sähkösopimukset — vertaa ja säästä vuodessa</title>
+<meta name="description" content="Suomen Parhaat Sähkösopimukset vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset puolestasi. Ilmainen, sitoumukseton ja valmis kolmessa minuutissa.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Voltti — Vertaa sähkösopimukset ja säästä vuodessa">
+<meta property="og:title" content="Suomen Parhaat Sähkösopimukset — vertaa ja säästä vuodessa">
 <meta property="og:description" content="Ilmainen sähkösopimusvertailu suomalaisille kotitalouksille. Kolme minuuttia, ei sitoumuksia.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2312151A'/%3E%3Cpath d='M54 16 L28 56 H46 L42 84 L74 40 H54 Z' fill='%23C6FF3D'/%3E%3C/svg%3E">
@@ -85,9 +85,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 /* ============================= HEADER ============================= */
 .site-header{ position:sticky; top:0; z-index:100; background:rgba(250,250,247,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
 .nav{ display:flex; align-items:center; justify-content:space-between; height:74px; gap:24px; }
-.logo{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:1.2rem; letter-spacing:-0.02em; }
-.logo-mark{ width:30px; height:30px; border-radius:8px; background:var(--dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.logo-mark svg{ width:15px; height:15px; }
+.logo{ display:flex; align-items:center; gap:10px; letter-spacing:-0.02em; }
+.logo-mark{ width:34px; height:34px; border-radius:8px; background:var(--dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.logo-mark svg{ width:17px; height:17px; }
+.logo-text{ font-weight:700; font-size:1rem; line-height:1.15; color:var(--ink); }
+.logo-text small{ display:block; font-weight:700; font-size:0.62rem; color:var(--lime-deep); text-transform:uppercase; letter-spacing:0.08em; }
 .nav-links{ display:flex; align-items:center; gap:32px; }
 .nav-links a{ font-size:0.92rem; font-weight:500; color:var(--ink-dim); transition:color var(--dur-fast); }
 .nav-links a:hover{ color:var(--ink); }
@@ -235,7 +237,7 @@ table.compare tr:last-child td{ border-bottom:none; }
   <div class="container nav">
     <a href="#" class="logo">
       <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
-      Voltti
+      <span class="logo-text"><small>Suomen Parhaat</small>Sähkösopimukset</span>
     </a>
     <nav class="nav-links" aria-label="Päävalikko">
       <a href="#vertaile">Vertaile</a>
@@ -269,7 +271,7 @@ table.compare tr:last-child td{ border-bottom:none; }
       <div>
         <span class="eyebrow">Ilmainen &amp; sitoumukseton</span>
         <h1>Löydä sähkösopimus,<br>joka <span class="hl">oikeasti kannattaa.</span></h1>
-        <p class="lead">Voltti vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset kulutuksesi mukaan — ja näyttää arvion säästöstä ennen kuin sitoudut mihinkään.</p>
+        <p class="lead">Vertailemme pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset kulutuksesi mukaan — ja näytämme arvion säästöstä ennen kuin sitoudut mihinkään.</p>
         <div class="hero-cta-row">
           <a href="#laskuri" class="btn btn-lime">Laske oma säästösi</a>
           <span class="trust-mini">Ei vaadi rekisteröitymistä</span>
@@ -423,7 +425,7 @@ table.compare tr:last-child td{ border-bottom:none; }
   <section class="section" id="miten">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Miten Voltti toimii</span>
+        <span class="eyebrow">Miten palvelu toimii</span>
         <h2>Kolme minuuttia, kolme askelta</h2>
       </div>
       <div class="steps">
@@ -435,7 +437,7 @@ table.compare tr:last-child td{ border-bottom:none; }
         <div class="step reveal">
           <div class="step-num mono">02</div>
           <h3>Näe säästöarvio</h3>
-          <p>Voltti näyttää heti arvion siitä, kuinka paljon voisit säästää vaihtamalla sopimustyyppiä tai toimittajaa.</p>
+          <p>Näytämme heti arvion siitä, kuinka paljon voisit säästää vaihtamalla sopimustyyppiä tai toimittajaa.</p>
         </div>
         <div class="step reveal">
           <div class="step-num mono">03</div>
@@ -456,11 +458,11 @@ table.compare tr:last-child td{ border-bottom:none; }
       <div class="faq-list reveal">
         <details class="faq-item">
           <summary>Onko vertailun käyttö minulle ilmaista?<span class="plus">+</span></summary>
-          <div class="faq-body">Kyllä. Voltin vertailutyökalu on kuluttajalle täysin ilmainen eikä vaadi rekisteröitymistä.</div>
+          <div class="faq-body">Kyllä. Vertailutyökalumme on kuluttajalle täysin ilmainen eikä vaadi rekisteröitymistä.</div>
         </details>
         <details class="faq-item">
-          <summary>Miten Voltti ansaitsee rahaa?<span class="plus">+</span></summary>
-          <div class="faq-body">Voltti on riippumaton vertailupalvelu. Voimme saada välityspalkkion, jos teet sopimuksen suosittelemamme kumppanin kautta — tämä ei koskaan vaikuta hintaan, jonka sinä maksat, eikä ohjaa suosituksiamme.</div>
+          <summary>Miten ansaitsemme rahaa?<span class="plus">+</span></summary>
+          <div class="faq-body">Olemme riippumaton vertailupalvelu. Voimme saada välityspalkkion, jos teet sopimuksen suosittelemamme kumppanin kautta — tämä ei koskaan vaikuta hintaan, jonka sinä maksat, eikä ohjaa suosituksiamme.</div>
         </details>
         <details class="faq-item">
           <summary>Vaikuttaako vertailu luottotietoihini?<span class="plus">+</span></summary>
@@ -493,7 +495,7 @@ table.compare tr:last-child td{ border-bottom:none; }
       <div class="footer-brand">
         <a href="#" class="logo">
           <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
-          Voltti
+          <span class="logo-text"><small>Suomen Parhaat</small>Sähkösopimukset</span>
         </a>
         <p>Riippumaton sähkösopimusvertailu suomalaisille kotitalouksille. Demoversio.</p>
       </div>
@@ -511,14 +513,14 @@ table.compare tr:last-child td{ border-bottom:none; }
       </div>
       <div class="footer-col">
         <h4>Yhteystiedot</h4>
-        <a href="mailto:hei@voltti.fi">hei@voltti.fi</a>
+        <a href="mailto:hei@sahkosopimukset.fi">hei@sahkosopimukset.fi</a>
       </div>
     </div>
     <div class="footer-disclosure">
-      <strong>Kaupallinen yhteistyö:</strong> Voltti on riippumaton vertailupalvelu, joka voi saada palkkion sähköntoimittajilta, jos teet sopimuksen palvelumme kautta. Palkkio ei vaikuta antamiimme vertailutuloksiin tai suosituksiin, eikä se vaikuta sopimuksesi hintaan. Laskurin arviot ovat suuntaa-antavia eivätkä sitovia tarjouksia.
+      <strong>Kaupallinen yhteistyö:</strong> Olemme riippumaton vertailupalvelu, joka voi saada palkkion sähköntoimittajilta, jos teet sopimuksen palvelumme kautta. Palkkio ei vaikuta antamiimme vertailutuloksiin tai suosituksiin, eikä se vaikuta sopimuksesi hintaan. Laskurin arviot ovat suuntaa-antavia eivätkä sitovia tarjouksia.
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Voltti. Kaikki oikeudet pidätetään.</span>
+      <span>© 2026 Suomen Parhaat Sähkösopimukset. Kaikki oikeudet pidätetään.</span>
       <span>Demosivusto — ei tuotantokäytössä</span>
     </div>
   </div>
