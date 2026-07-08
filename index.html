@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Suomen Parhaat Sähkösopimukset — vertaa ja säästä vuodessa</title>
-<meta name="description" content="Suomen Parhaat Sähkösopimukset vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset puolestasi. Ilmainen, sitoumukseton ja valmis kolmessa minuutissa.">
+<title>Suomen Paras Sähkösopimus — vertaa ja säästä vuodessa</title>
+<meta name="description" content="Suomen Paras Sähkösopimus vertailee pörssisähkön, kiinteän hinnan ja kausisähkön sopimukset puolestasi. Ilmainen, sitoumukseton ja valmis kolmessa minuutissa.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Suomen Parhaat Sähkösopimukset — vertaa ja säästä vuodessa">
+<meta property="og:title" content="Suomen Paras Sähkösopimus — vertaa ja säästä vuodessa">
 <meta property="og:description" content="Ilmainen sähkösopimusvertailu suomalaisille kotitalouksille. Kolme minuuttia, ei sitoumuksia.">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2312151A'/%3E%3Cpath d='M54 16 L28 56 H46 L42 84 L74 40 H54 Z' fill='%23C6FF3D'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2312151A'/%3E%3Cpath d='M54 16 L28 56 H46 L42 84 L74 40 H54 Z' fill='%233DE0FF'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,9 +24,9 @@
   --ink-faint:#8A8F99;
   --line:#E4E4DC;
   --line-strong:#CFCFC3;
-  --lime:#C6FF3D;
-  --lime-deep:#8FCC00;
-  --lime-ink:#1B2400;
+  --lime:#3DE0FF;
+  --lime-deep:#00AFCC;
+  --lime-ink:#042630;
   --dark:#12151A;
   --dark-alt:#1B1F27;
   --white:#FFFFFF;
@@ -117,7 +117,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 
 /* ============================= HERO ============================= */
 .hero{ padding:64px 0 90px; position:relative; overflow:hidden; }
-.hero::before{ content:''; position:absolute; top:-140px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(198,255,61,0.35), transparent 70%); pointer-events:none; }
+.hero::before{ content:''; position:absolute; top:-140px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle, rgba(61,224,255,0.35), transparent 70%); pointer-events:none; }
 .hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; position:relative; }
 .eyebrow{ display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--lime-ink); background:var(--lime); padding:7px 13px; border-radius:100px; margin-bottom:22px; }
 .hero h1{ font-size:clamp(2.3rem,4.4vw,3.5rem); margin-bottom:20px; }
@@ -146,7 +146,7 @@ input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50
 .pill-opt{ flex:1; min-width:100px; text-align:center; padding:11px 10px; border-radius:var(--radius-md); border:1.5px solid var(--line-strong); font-size:0.83rem; font-weight:600; color:var(--ink-dim); transition:all var(--dur-fast); }
 .pill-opt.active{ background:var(--dark); border-color:var(--dark); color:var(--lime); }
 .calc-result{ margin-top:24px; padding:22px; border-radius:var(--radius-md); background:var(--dark); position:relative; overflow:hidden; }
-.calc-result::after{ content:''; position:absolute; top:-40%; right:-20%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(198,255,61,0.25), transparent 70%); }
+.calc-result::after{ content:''; position:absolute; top:-40%; right:-20%; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(61,224,255,0.25), transparent 70%); }
 .calc-result .r-label{ font-size:0.78rem; color:rgba(255,255,255,0.55); margin-bottom:6px; position:relative; }
 .calc-result .r-value{ font-family:'JetBrains Mono',monospace; font-size:2.3rem; font-weight:700; color:var(--lime); position:relative; }
 .calc-result .r-sub{ font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:6px; position:relative; }
@@ -240,7 +240,7 @@ table.compare tr:last-child td{ border-bottom:none; }
 
 /* ============================= CTA BAND ============================= */
 .cta-band{ background:var(--dark); border-radius:var(--radius-lg); padding:64px 48px; text-align:center; position:relative; overflow:hidden; }
-.cta-band::before{ content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:520px; height:280px; background:radial-gradient(ellipse, rgba(198,255,61,0.28), transparent 70%); pointer-events:none; }
+.cta-band::before{ content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:520px; height:280px; background:radial-gradient(ellipse, rgba(61,224,255,0.28), transparent 70%); pointer-events:none; }
 .cta-band h2{ color:var(--white); font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:14px; position:relative; }
 .cta-band p{ color:rgba(255,255,255,0.62); max-width:460px; margin:0 auto 28px; position:relative; }
 .cta-band .btn{ position:relative; }
@@ -266,8 +266,8 @@ table.compare tr:last-child td{ border-bottom:none; }
 <header class="site-header">
   <div class="container nav">
     <a href="#" class="logo">
-      <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
-      <span class="logo-text"><small>Suomen Parhaat</small>Sähkösopimukset</span>
+      <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#3DE0FF"/></svg></span>
+      <span class="logo-text"><small>Suomen Paras</small>Sähkösopimus</span>
     </a>
     <nav class="nav-links" aria-label="Päävalikko">
       <a href="#vertaile">Vertaile</a>
@@ -346,7 +346,7 @@ table.compare tr:last-child td{ border-bottom:none; }
             <div class="bar-row">
               <span class="bar-lbl">Arvioitu paras</span>
               <div class="bar-track"><div class="bar-fill best" id="barBest" style="width:70%"></div></div>
-              <span class="mono bar-num" id="barBestVal" style="color:#C6FF3D;font-size:.72rem;width:52px;text-align:right;">527 €</span>
+              <span class="mono bar-num" id="barBestVal" style="color:#3DE0FF;font-size:.72rem;width:52px;text-align:right;">527 €</span>
             </div>
           </div>
         </div>
@@ -525,8 +525,8 @@ table.compare tr:last-child td{ border-bottom:none; }
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="#" class="logo">
-          <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#C6FF3D"/></svg></span>
-          <span class="logo-text"><small>Suomen Parhaat</small>Sähkösopimukset</span>
+          <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#3DE0FF"/></svg></span>
+          <span class="logo-text"><small>Suomen Paras</small>Sähkösopimus</span>
         </a>
         <p>Riippumaton sähkösopimusvertailu suomalaisille kotitalouksille. Demoversio.</p>
       </div>
@@ -551,7 +551,7 @@ table.compare tr:last-child td{ border-bottom:none; }
       <strong>Kaupallinen yhteistyö:</strong> Olemme riippumaton vertailupalvelu, joka voi saada palkkion sähköntoimittajilta, jos teet sopimuksen palvelumme kautta. Palkkio ei vaikuta antamiimme vertailutuloksiin tai suosituksiin, eikä se vaikuta sopimuksesi hintaan. Laskurin arviot ovat suuntaa-antavia eivätkä sitovia tarjouksia.
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Suomen Parhaat Sähkösopimukset. Kaikki oikeudet pidätetään.</span>
+      <span>© 2026 Suomen Paras Sähkösopimus. Kaikki oikeudet pidätetään.</span>
       <span>Demosivusto — ei tuotantokäytössä</span>
     </div>
   </div>
