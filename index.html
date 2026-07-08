@@ -27,6 +27,8 @@
   --lime:#3DE0FF;
   --lime-deep:#00AFCC;
   --lime-ink:#042630;
+  --badge-navy:#14235C;
+  --badge-gold:#F0A93D;
   --dark:#12151A;
   --dark-alt:#1B1F27;
   --white:#FFFFFF;
@@ -86,10 +88,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .site-header{ position:sticky; top:0; z-index:100; background:rgba(250,250,247,0.86); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
 .nav{ display:flex; align-items:center; justify-content:space-between; height:74px; gap:24px; }
 .logo{ display:flex; align-items:center; gap:10px; letter-spacing:-0.02em; }
-.logo-mark{ width:34px; height:34px; border-radius:8px; background:var(--dark); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.logo-mark svg{ width:17px; height:17px; }
+.logo-mark{ width:40px; height:40px; flex-shrink:0; }
+.logo-mark svg{ width:100%; height:100%; display:block; }
 .logo-text{ font-weight:700; font-size:1rem; line-height:1.15; color:var(--ink); }
 .logo-text small{ display:block; font-weight:700; font-size:0.62rem; color:var(--lime-deep); text-transform:uppercase; letter-spacing:0.08em; }
+
+/* ---- Shared network brand seal (same navy+gold badge across every "Suomen Paras/Parhaat" site) ---- */
+.brand-badge{ display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center; }
+.brand-badge-ring{ width:112px; height:112px; flex-shrink:0; }
+.brand-badge-ring svg{ width:100%; height:100%; display:block; }
+.brand-badge-text .l1{ display:block; font-size:0.8rem; font-weight:800; letter-spacing:0.1em; color:var(--badge-navy); }
+.brand-badge-text .l2{ display:flex; align-items:center; justify-content:center; gap:9px; font-size:1rem; font-weight:800; letter-spacing:0.16em; color:var(--badge-gold); margin:3px 0; }
+.brand-badge-text .l2::before, .brand-badge-text .l2::after{ content:''; width:18px; height:2px; background:var(--badge-gold); }
+.brand-badge-text .l3{ display:block; font-size:0.88rem; font-weight:800; letter-spacing:0.03em; color:var(--badge-navy); }
 .nav-links{ display:flex; align-items:center; gap:32px; }
 .nav-links a{ font-size:0.92rem; font-weight:500; color:var(--ink-dim); transition:color var(--dur-fast); }
 .nav-links a:hover{ color:var(--ink); }
@@ -266,7 +277,16 @@ table.compare tr:last-child td{ border-bottom:none; }
 <header class="site-header">
   <div class="container nav">
     <a href="#" class="logo">
-      <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#3DE0FF"/></svg></span>
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="64" r="50" fill="#FAFAF7" stroke="#14235C" stroke-width="7"/>
+          <path d="M40 36 L44 20 L54 30 L60 16 L66 30 L76 20 L80 36 L76 42 L44 42 Z" fill="#F0A93D"/>
+          <circle cx="44" cy="20" r="3" fill="#F0A93D"/>
+          <circle cx="60" cy="16" r="3.2" fill="#F0A93D"/>
+          <circle cx="76" cy="20" r="3" fill="#F0A93D"/>
+          <path d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
+        </svg>
+      </span>
       <span class="logo-text"><small>Suomen Paras</small>Sähkösopimus</span>
     </a>
     <nav class="nav-links" aria-label="Päävalikko">
@@ -524,10 +544,23 @@ table.compare tr:last-child td{ border-bottom:none; }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="#" class="logo">
-          <span class="logo-mark"><svg viewBox="0 0 100 100" fill="none"><path d="M54 16 L28 56 H46 L42 84 L74 40 H54 Z" fill="#3DE0FF"/></svg></span>
-          <span class="logo-text"><small>Suomen Paras</small>Sähkösopimus</span>
-        </a>
+        <div class="brand-badge">
+          <span class="brand-badge-ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120" fill="none">
+              <circle cx="60" cy="64" r="50" fill="#FAFAF7" stroke="#14235C" stroke-width="7"/>
+              <path d="M40 36 L44 20 L54 30 L60 16 L66 30 L76 20 L80 36 L76 42 L44 42 Z" fill="#F0A93D"/>
+              <circle cx="44" cy="20" r="3" fill="#F0A93D"/>
+              <circle cx="60" cy="16" r="3.2" fill="#F0A93D"/>
+              <circle cx="76" cy="20" r="3" fill="#F0A93D"/>
+              <path d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
+            </svg>
+          </span>
+          <p class="brand-badge-text">
+            <span class="l1">Suomen</span>
+            <span class="l2">Paras</span>
+            <span class="l3">Sähkösopimus</span>
+          </p>
+        </div>
         <p>Riippumaton sähkösopimusvertailu suomalaisille kotitalouksille. Demoversio.</p>
       </div>
       <div class="footer-col">
