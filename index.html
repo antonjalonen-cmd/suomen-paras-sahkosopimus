@@ -101,10 +101,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .nav-links{ display:none; }
   .nav-toggle{ display:flex; }
   .nav-actions .btn-ghost{ display:none; }
-  .mobile-menu{ position:fixed; inset:74px 0 0 0; background:var(--paper); z-index:90; padding:28px 6%; flex-direction:column; gap:4px; transform:translateX(100%); transition:transform var(--dur-med) var(--ease-out); }
+  .mobile-menu{ position:fixed; inset:74px 0 0 0; background:var(--paper); z-index:90; padding:28px 6%; flex-direction:column; gap:4px; transform:translateX(100%); transition:transform var(--dur-med) var(--ease-out); overflow-y:auto; }
   .mobile-menu.open{ display:flex; transform:translateX(0); }
   .mobile-menu a{ padding:16px 4px; border-bottom:1px solid var(--line); font-size:1.1rem; font-weight:600; }
   .mobile-menu .btn{ margin-top:18px; }
+}
+@media (max-width:480px){
+  .nav{ height:66px; gap:10px; }
+  .nav-actions .btn-dark{ display:none; }
+  .mobile-menu{ inset:66px 0 0 0; }
+  .logo-mark{ width:30px; height:30px; }
+  .logo-text{ font-size:0.9rem; }
+  .logo-text small{ font-size:0.56rem; }
 }
 
 /* ============================= HERO ============================= */
@@ -154,6 +162,22 @@ input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50
 @media (max-width:900px){
   .hero-grid{ grid-template-columns:1fr; }
 }
+@media (max-width:640px){
+  .hero{ padding:36px 0 56px; }
+  .hero-grid{ gap:36px; }
+  .hero h1{ margin-bottom:16px; }
+  .hero p.lead{ font-size:1.02rem; margin-bottom:24px; }
+  .hero-cta-row{ margin-bottom:28px; }
+  .hero-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .hero-stat .num{ font-size:1.2rem; }
+  .hero-stat .lbl{ font-size:0.72rem; }
+  .calc-card{ padding:20px; }
+  .calc-result{ padding:18px; }
+  .calc-result .r-value{ font-size:1.9rem; }
+  input[type="range"]{ margin:10px 0; }
+  input[type="range"]::-webkit-slider-thumb{ width:24px; height:24px; }
+  input[type="range"]::-moz-range-thumb{ width:24px; height:24px; }
+}
 
 /* ============================= TRUST STRIP ============================= */
 .trust-strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-alt); padding:26px 0; }
@@ -169,6 +193,10 @@ input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50
 .section-head h2{ font-size:clamp(1.8rem,3.2vw,2.5rem); margin-bottom:14px; }
 .section-head p{ color:var(--ink-dim); font-size:1.02rem; }
 .section-alt{ background:var(--paper-alt); }
+@media (max-width:640px){
+  .section{ padding:56px 0; }
+  .section-head{ margin-bottom:32px; }
+}
 
 /* ============================= CONTRACT TYPE CARDS ============================= */
 .type-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
@@ -182,12 +210,14 @@ input[type="range"]::-moz-range-thumb{ width:20px; height:20px; border-radius:50
 @media (max-width:860px){ .type-grid{ grid-template-columns:1fr; } }
 
 /* ============================= COMPARISON TABLE ============================= */
-.compare-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--white); }
+.compare-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--white); -webkit-overflow-scrolling:touch; }
 table.compare{ width:100%; border-collapse:collapse; min-width:640px; }
 table.compare th, table.compare td{ padding:16px 20px; text-align:left; font-size:0.9rem; border-bottom:1px solid var(--line); }
 table.compare th{ font-size:0.76rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); font-weight:700; background:var(--paper-alt); }
 table.compare td:first-child, table.compare th:first-child{ font-weight:600; color:var(--ink); }
 table.compare tr:last-child td{ border-bottom:none; }
+.scroll-hint{ display:none; align-items:center; gap:6px; font-size:0.76rem; color:var(--ink-faint); margin-top:10px; }
+@media (max-width:700px){ .scroll-hint{ display:flex; } }
 .chk{ color:var(--lime-deep); font-weight:700; }
 .x-mark{ color:var(--ink-faint); }
 
@@ -253,15 +283,15 @@ table.compare tr:last-child td{ border-bottom:none; }
       </button>
     </div>
   </div>
-  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobiilivalikko">
-    <a href="#vertaile">Vertaile</a>
-    <a href="#miten">Miten toimii</a>
-    <a href="#sopimustyypit">Sopimustyypit</a>
-    <a href="#ukk">UKK</a>
-    <a href="#yhteystiedot">Yhteystiedot</a>
-    <a href="#vertaile" class="btn btn-lime">Aloita vertailu</a>
-  </nav>
 </header>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Mobiilivalikko">
+  <a href="#vertaile">Vertaile</a>
+  <a href="#miten">Miten toimii</a>
+  <a href="#sopimustyypit">Sopimustyypit</a>
+  <a href="#ukk">UKK</a>
+  <a href="#yhteystiedot">Yhteystiedot</a>
+  <a href="#vertaile" class="btn btn-lime">Aloita vertailu</a>
+</nav>
 
 <main id="sisalto">
 
@@ -418,6 +448,7 @@ table.compare tr:last-child td{ border-bottom:none; }
           </tbody>
         </table>
       </div>
+      <span class="scroll-hint">← Selaa sivulle nähdäksesi kaikki sarakkeet →</span>
     </div>
   </section>
 
