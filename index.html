@@ -147,6 +147,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .calc-live{ display:flex; align-items:center; gap:6px; font-size:0.72rem; font-weight:600; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.06em; }
 .dot-live{ width:7px; height:7px; border-radius:50%; background:var(--lime-deep); animation:pulse 1.8s infinite; }
 @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+@keyframes boltFlash{
+  0%, 100%{ opacity:1; filter:drop-shadow(0 0 0 rgba(240,169,61,0)); }
+  3%{ opacity:0.25; }
+  6%{ opacity:1; filter:drop-shadow(0 0 7px rgba(240,169,61,0.9)); }
+  9%{ opacity:0.4; }
+  12%{ opacity:1; filter:drop-shadow(0 0 4px rgba(240,169,61,0.6)); }
+  16%{ opacity:1; filter:drop-shadow(0 0 0 rgba(240,169,61,0)); }
+}
+.bolt-flash{ animation:boltFlash 5s ease-in-out infinite; transform-origin:60px 64px; }
 .field{ margin-bottom:20px; }
 .field label{ display:flex; justify-content:space-between; font-size:0.83rem; font-weight:600; color:var(--ink-dim); margin-bottom:10px; }
 .field label .val{ font-family:'JetBrains Mono',monospace; color:var(--ink); font-weight:700; }
@@ -284,7 +293,7 @@ table.compare tr:last-child td{ border-bottom:none; }
           <circle cx="44" cy="20" r="3" fill="#F0A93D"/>
           <circle cx="60" cy="16" r="3.2" fill="#F0A93D"/>
           <circle cx="76" cy="20" r="3" fill="#F0A93D"/>
-          <path d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
+          <path class="bolt-flash" d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
         </svg>
       </span>
       <span class="logo-text"><small>Suomen Paras</small>Sähkösopimus</span>
@@ -552,7 +561,7 @@ table.compare tr:last-child td{ border-bottom:none; }
               <circle cx="44" cy="20" r="3" fill="#F0A93D"/>
               <circle cx="60" cy="16" r="3.2" fill="#F0A93D"/>
               <circle cx="76" cy="20" r="3" fill="#F0A93D"/>
-              <path d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
+              <path class="bolt-flash" d="M68 44 L46 74 H58 L52 100 L80 66 H66 Z" fill="#F0A93D"/>
             </svg>
           </span>
           <p class="brand-badge-text">
